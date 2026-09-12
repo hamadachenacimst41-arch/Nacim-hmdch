@@ -1,0 +1,6 @@
+{
+  "name": "GCB Suivi Chantier - Maçonnerie & Finition",
+  "description": "Application professionnelle de suivi des sous-traitants pour GCB : avancement maçonnerie et finition, calcul des briques et palettes (335 pcs/pal), gestion des anomalies et rapports journaliers/hebdomadaires avec export PDF officiel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

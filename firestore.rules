@@ -1,0 +1,61 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Authorized Team Members & Roles
+    match /authorized_users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Projects collection
+    match /projects/{projectId} {
+      allow read, write: if true;
+    }
+
+    // Subcontractors
+    match /subcontractors/{subcontractorId} {
+      allow read, write: if true;
+    }
+
+    // Daily Logs
+    match /dailyLogs/{dailyLogId} {
+      allow read, write: if true;
+    }
+
+    // Anomalies
+    match /anomalies/{anomalyId} {
+      allow read, write: if true;
+    }
+
+    // Finishing Lots
+    match /finishingLots/{lotId} {
+      allow read, write: if true;
+    }
+
+    // Reserve Types
+    match /reserveTypes/{typeId} {
+      allow read, write: if true;
+    }
+
+    // Weekly Reports
+    match /weeklyReports/{reportId} {
+      allow read, write: if true;
+    }
+
+    // Calculations
+    match /calculations/{calcId} {
+      allow read, write: if true;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "Données globales du projet et état d'avancement",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "client": { "type": "string" },
+        "location": { "type": "string" },
+        "supervisorName": { "type": "string" },
+        "worksManagerName": { "type": "string" },
+        "startDate": { "type": "string" },
+        "plannedCompletionDate": { "type": "string" },
+        "globalProgressPercentage": { "type": "number" },
+        "blocs": { "type": "array" },
+        "floors": { "type": "array" }
+      },
+      "required": ["id", "name", "code", "globalProgressPercentage"]
+    },
+    "Subcontractor": {
+      "title": "Subcontractor",
+      "description": "Sous-traitant intervenant sur le chantier",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "companyName": { "type": "string" },
+        "trade": { "type": "string" },
+        "assignedZone": { "type": "string" },
+        "phone": { "type": "string" },
+        "managerName": { "type": "string" },
+        "contractualProgress": { "type": "number" },
+        "realProgress": { "type": "number" },
+        "activeWorkers": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "name", "companyName", "trade", "realProgress"]
+    },
+    "DailyLog": {
+      "title": "DailyLog",
+      "description": "Rapport et pointage journalier d'un sous-traitant",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "subcontractorId": { "type": "string" },
+        "subcontractorName": { "type": "string" },
+        "trade": { "type": "string" },
+        "workDescription": { "type": "string" },
+        "dailyProgressPct": { "type": "number" },
+        "globalProgressImpactPct": { "type": "number" },
+        "weather": { "type": "string" },
+        "observations": { "type": "string" },
+        "supervisorVisa": { "type": "boolean" },
+        "managerVisa": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "date", "subcontractorId", "workDescription"]
+    },
+    "Anomaly": {
+      "title": "Anomaly",
+      "description": "Non-conformité et réserve constatée sur le chantier",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "subcontractorId": { "type": "string" },
+        "subcontractorName": { "type": "string" },
+        "location": { "type": "string" },
+        "category": { "type": "string" },
+        "reserveTypeName": { "type": "string" },
+        "severity": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "deadlineDate": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "date", "subcontractorId", "title", "severity", "status"]
+    },
+    "FinishingLot": {
+      "title": "FinishingLot",
+      "description": "Lot de travaux et métrés de finition (m²)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "unit": { "type": "string" },
+        "totalContractArea": { "type": "number" },
+        "completedArea": { "type": "number" },
+        "subcontractorId": { "type": "string" },
+        "subcontractorName": { "type": "string" },
+        "assignedBlocs": { "type": "string" },
+        "targetDate": { "type": "string" }
+      },
+      "required": ["id", "name", "totalContractArea", "completedArea"]
+    },
+    "ReserveType": {
+      "title": "ReserveType",
+      "description": "Référentiel des types de réserves et défauts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "defaultSeverity": { "type": "string" },
+        "description": { "type": "string" },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["id", "name", "category", "defaultSeverity"]
+    },
+    "WeeklyReport": {
+      "title": "WeeklyReport",
+      "description": "Rapport hebdomadaire de synthèse",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "weekNumber": { "type": "number" },
+        "year": { "type": "number" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "title": { "type": "string" },
+        "globalProgressStart": { "type": "number" },
+        "globalProgressEnd": { "type": "number" },
+        "weeklyProgressDelta": { "type": "number" },
+        "authorName": { "type": "string" },
+        "submittedTo": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "weekNumber", "year", "title", "weeklyProgressDelta"]
+    },
+    "AuthorizedUser": {
+      "title": "AuthorizedUser",
+      "description": "Utilisateurs autorisés et leurs rôles (responsable vs superviseur)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["superviseur", "responsable"] },
+        "organization": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/authorized_users/{userId}": {
+      "schema": "AuthorizedUser",
+      "description": "Liste des utilisateurs autorisés et rôles"
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Informations du projet de construction"
+    },
+    "/subcontractors/{subcontractorId}": {
+      "schema": "Subcontractor",
+      "description": "Sous-traitants du chantier"
+    },
+    "/dailyLogs/{dailyLogId}": {
+      "schema": "DailyLog",
+      "description": "Pointages journaliers"
+    },
+    "/anomalies/{anomalyId}": {
+      "schema": "Anomaly",
+      "description": "Réserves et non-conformités"
+    },
+    "/finishingLots/{lotId}": {
+      "schema": "FinishingLot",
+      "description": "Lots de finition et métrés"
+    },
+    "/reserveTypes/{typeId}": {
+      "schema": "ReserveType",
+      "description": "Types de réserves"
+    },
+    "/weeklyReports/{reportId}": {
+      "schema": "WeeklyReport",
+      "description": "Rapports hebdomadaires"
+    }
+  }
+}
